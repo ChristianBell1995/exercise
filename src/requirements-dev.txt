@@ -1,0 +1,5 @@
+-r requirements.txt
+pytest==7.2.0
+pytest-asyncio
+httpx==0.23.1
+pre-commit
