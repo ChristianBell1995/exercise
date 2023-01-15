@@ -2,6 +2,19 @@
 ## Get started
 Run `docker-compose up` to start the application.
 To run the tests, execute `docker-compose exec web pytest .`
+To make a limit order:
+```
+curl --location --request POST 'localhost:8002/orders' \
+--header 'Content-Type: application/json' \
+--data-raw '{"idempotency_id": "13371229-f629-4679-aff4-f090334055be", "type": "limit", "side": "buy", "instrument": "US19260Q1076", "quantity": 1, "limit_price_cents": 100}'
+```
+
+To make a market order:
+```
+curl --location --request POST 'localhost:8002/orders' \
+--header 'Content-Type: application/json' \
+--data-raw '{"idempotency_id": "16371229-f629-4679-aff4-f090334055be", "type": "market", "side": "buy", "instrument": "US19260Q1076", "quantity": 1}'
+```
 
 ## POST Endpoint to create an Order
 - To handle possible failed network requests or double requests from the client, an `idempotency_id` is added to the endpoint.
