@@ -22,10 +22,10 @@ async def create_order(model: CreateOrderModel):
 
     try:
         await asyncio.to_thread(stock_exchange.place_order, order)
-        order = await crud.update(order=order, status=OrderStatus.ACTIVE)
+        order = await crud.update(order=order, status=OrderStatus.CREATED)
         return order
     except OrderPlacementError:
-        await crud.update(order=order, status=OrderStatus.INACTIVE)
+        await crud.update(order=order, status=OrderStatus.FAILED)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Internal server error while placing the order",

@@ -11,7 +11,7 @@ async def get(idempotency_id: int):
 
 
 async def create(model: CreateOrderModel):
-    order = Order(**{**model.dict(), "status": OrderStatus.CREATED})
+    order = Order(**{**model.dict(), "status": OrderStatus.PENDING})
     query = orders.insert().values(**order.dict()).returning(literal_column("*"))
     await database.execute(query=query)
     return order
